@@ -1,23 +1,22 @@
 #version 0.1
-FROM ubuntu:16.04
+FROM alpine:3.10
 
 #maintainer information
 LABEL maintainer="kthw@kth.se"
 
 # update the apt package manager
-RUN apt-get update
-RUN apt-get install -y software-properties-common
-RUN add-apt-repository ppa:deadsnakes/ppa
-RUN apt-get update && apt-get -y install locales
+RUN apk update
+#RUN add-apt-repository ppa:deadsnakes/ppa  # python-3.6 here
+#RUN apt-get update && apt-get -y install locales
 
 
 # install make and nano
-RUN apt-get install -y build-essential && apt-get install -y nano
+#RUN apt-get install -y build-essential && apt-get install -y nano
 
 # install python
-RUN apt-get install -y python3.6 python3.6-dev python3-pip python3.6-venv
+RUN apk add python3 #  python3.6-dev python3-pip python3.6-venv
 RUN pip3 install --upgrade pip
-RUN yes | pip3 install numpy
+RUN yes | pip3 install numpy  ## FIXME
 RUN yes | pip3 install matplotlib
 RUN yes | pip3 install snakemake
 
